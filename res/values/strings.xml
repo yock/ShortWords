@@ -3,4 +3,8 @@
     <string name="hello">Hello World, ShortWords!</string>
     <string name="app_name">ShortWords</string>
 <string name="alpha">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+<string name="settings_title">Settings</string>
+<string name="settings_shortcut">s</string>
+<string name="dict_settings_title">Dictionary</string>
+<string name="dict_default">twl98</string>
 </resources>

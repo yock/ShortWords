@@ -1,9 +1,13 @@
 package com.yocksoft.shortwords;
 
-import com.yocksoft.shortwords.R;
-
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -28,18 +32,13 @@ public class ShortWords extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		wordList = getResources().getStringArray(R.array.twl98);
-
 		letterListView = (ListView) findViewById(R.id.letterlistview);
 		wordListView = (ListView) findViewById(R.id.wordlistview);
 
 		letterListAdapter = new ArrayAdapter<String>(this, R.layout.rowlayout,
 				R.id.tileletter, LETTER_LIST);
-		letterListView.setAdapter(letterListAdapter);
 
-		wordListAdapter = new ArrayAdapter<String>(this, R.layout.wordview,
-				wordList);
-		wordListView.setAdapter(wordListAdapter);
+		letterListView.setAdapter(letterListAdapter);
 
 		letterListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -60,4 +59,39 @@ public class ShortWords extends Activity {
 		});
 
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		filterValue = null;
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		String preferenceString = preferences.getString("dictionary", "com.yocksoft.shortwords:array/twl98");
+		int wordListResource = getResources().getIdentifier(preferenceString, null, null);
+		wordList = getResources().getStringArray(wordListResource);
+		wordListAdapter = new ArrayAdapter<String>(this, R.layout.wordview,
+				wordList);
+		wordListView.setAdapter(wordListAdapter);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+		case R.id.settings:
+			startActivity(new Intent(this, Prefs.class));
+			return true;
+		default:
+			return false;
+		}
+	}
+
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <ListPreference
+    android:entries="@array/dict"
+    android:entryValues="@array/dictvalues"
+    android:title="@string/dict_settings_title"
+    android:defaultValue="@string/dict_default"
+    android:key="dictionary"></ListPreference>
+</PreferenceScreen>
