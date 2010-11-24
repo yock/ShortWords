@@ -19,7 +19,7 @@ public class ShortWords extends Activity {
 	private ListView letterListView;
 	private ListView wordListView;
 	private ArrayAdapter<String> letterListAdapter;
-	private ArrayAdapter<String> wordListAdapter;
+	private ContentsArrayAdapter<String> wordListAdapter;
 	private String[] wordList;
 	private String filterValue = null;
 	private static final String[] LETTER_LIST = { "A", "B", "C", "D", "E", "F",
@@ -69,7 +69,7 @@ public class ShortWords extends Activity {
 		String preferenceString = preferences.getString("dictionary", "com.yocksoft.shortwords:array/twl98");
 		int wordListResource = getResources().getIdentifier(preferenceString, null, null);
 		wordList = getResources().getStringArray(wordListResource);
-		wordListAdapter = new ArrayAdapter<String>(this, R.layout.wordview,
+		wordListAdapter = new ContentsArrayAdapter<String>(this, R.layout.wordview,
 				wordList);
 		wordListView.setAdapter(wordListAdapter);
 	}
